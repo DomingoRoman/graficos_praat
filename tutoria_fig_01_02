@@ -1,0 +1,21 @@
+Read from file: "/Users/historiadores/Documents/Domingo/tut_01.TextGrid"
+Read from file: "/Users/historiadores/Documents/Domingo/tut_01.wav"
+
+# Primera figura:
+Select inner viewport: 0.5, 5, 0.5, 3
+selectObject: "Sound tut_01"
+Draw: 0, 0, 0, 0, "no", "Curve"
+Draw inner box
+One mark left: 0, "yes", "yes", "yes", ""
+
+Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/fig_1_tutoria.png"
+
+
+# Segunda figura
+One mark bottom: 0.010402, "no", "yes", "yes", ""
+One mark bottom: 0.017864, "no", "yes", "yes", ""
+One mark bottom: 0.010402, "no", "yes", "yes", ""
+Select outer viewport: 0.35, 5, 0.5, 3.05
+
+Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/fig_2_tutoria.png"
+
