@@ -1,5 +1,49 @@
-Read from file: "/Users/historiadores/Documents/Domingo/tut_01.TextGrid"
-Read from file: "/Users/historiadores/Documents/Domingo/tut_01.wav"
+# Gráficos en Praat
+
+# selección del sonido
+
+sonido$ = selected$ ("Sound")
+sonido = selected ("Sound")
+
+form Gráficos
+  word nombre_archivo
+  choice extens 1
+    option png
+    option pdf
+    option jpg
+  choice opcion 1
+    button oscilograma
+    button espectrograma
+  boolean todos
+endform
+
+#### Elegir carpeta de trabajo
+### cambiar barra / (mac) a \ (otro)
+
+directorioGraficos$ = chooseDirectory$: "Carpeta para gráficos"
+
+
+
+#extensionTextGrid$ = ".TextGrid"
+#extensionSonido$ = ".wav"
+#especificacionSonido$ = directorioOriginal$ + "\*" + extensionSonido$
+
+
+
+## oscilograma
+
+if opcion = 1
+  Select inner viewport: 0.5, 6, 0.5, 2
+  
+  
+## espectrograma
+Select inner viewport: 0.5, 6, 2, 4
+## conjunto
+Select outer viewport: 0.5, 6, 0.5, 4
+
+
+
+
 
 # Primera figura:
 Select inner viewport: 0.5, 5, 0.5, 3
