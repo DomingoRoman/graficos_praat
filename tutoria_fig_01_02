@@ -2,64 +2,63 @@
 
 # selección del sonido
 
+Erase all
+
+
+
 sonido$ = selected$ ("Sound")
 sonido = selected ("Sound")
+spectrograma = To Spectrogram: 0.005, 5000, 0.002, 20, "Gaussian"
+
 
 form Gráficos
-  word nombre_archivo
-  choice extens 1
-    option png
-    option pdf
-    option jpg
-  choice opcion 1
-    button oscilograma
-    button espectrograma
-  boolean todos
+	word nombre_archivo
+	choice extens 1
+    	option png
+    	option pdf
+    	option jpg
+	choice opcion 2
+    	button solo_oscilograma
+    	button oscilograma_y_espectrograma
+	choice color_oscilograma 1
+    	button Black
 endform
 
-#### Elegir carpeta de trabajo
-### cambiar barra / (mac) a \ (otro)
-
-directorioGraficos$ = chooseDirectory$: "Carpeta para gráficos"
+extensionGraficos$ = ".'extens'"
 
 
-
-#extensionTextGrid$ = ".TextGrid"
-#extensionSonido$ = ".wav"
-#especificacionSonido$ = directorioOriginal$ + "\*" + extensionSonido$
-
-
-
-## oscilograma
+writeInfoLine: extensionGraficos$
 
 if opcion = 1
-  Select inner viewport: 0.5, 6, 0.5, 2
-  
-  
-## espectrograma
-Select inner viewport: 0.5, 6, 2, 4
-## conjunto
-Select outer viewport: 0.5, 6, 0.5, 4
+	if color_oscilograma = 1
+		Black
+		Select inner viewport: 0.5, 6, 0.5, 2
+		select sonido
+		Draw: 0, 0, 0, 0, "no", "Curve"
+		One mark left: 0, "yes", "no", "yes", ""
+		Draw inner box
+	endif
 
+elsif opcion = 2
 
+	if color_oscilograma = 1
+		Black
+		Select inner viewport: 0.5, 6, 0.5, 2
+		select sonido
+		Draw: 0, 0, 0, 0, "no", "Curve"
+		One mark left: 0, "yes", "no", "yes", ""
+		Draw inner box
 
+		Select inner viewport: 0.5, 6, 2, 4
+	select spectrograma
+	Paint: 0, 0, 0, 0, 100, "yes", 50, 6, 0, "no"
+	Marks right every: 1000, 1, "yes", "yes", "yes"
+	Text right: "yes", "KHz"
+	Draw inner box
+	Remove
+endif
 
-
-# Primera figura:
-Select inner viewport: 0.5, 5, 0.5, 3
-selectObject: "Sound tut_01"
-Draw: 0, 0, 0, 0, "no", "Curve"
-Draw inner box
-One mark left: 0, "yes", "yes", "yes", ""
-
-Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/fig_1_tutoria.png"
-
-
-# Segunda figura
-One mark bottom: 0.010402, "no", "yes", "yes", ""
-One mark bottom: 0.017864, "no", "yes", "yes", ""
-One mark bottom: 0.010402, "no", "yes", "yes", ""
-Select outer viewport: 0.35, 5, 0.5, 3.05
+Select outer viewport: 0.5, 6.6, 0.5, 4.1
 
 Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/fig_2_tutoria.png"
 
