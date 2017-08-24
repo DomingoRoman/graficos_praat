@@ -1,31 +1,43 @@
 # Gráficos en Praat
-
-# selección del sonido
+# Gráfico simple: oscilograma y espectrograma
 
 Erase all
 
-
-
+# selección del sonido
 sonido$ = selected$ ("Sound")
 sonido = selected ("Sound")
-spectrograma = To Spectrogram: 0.005, 5000, 0.002, 20, "Gaussian"
-
-
-form Gráficos
-	word nombre_archivo
-	choice extens 1
-    	option png
-    	option pdf
-    	option jpg
-	choice opcion 2
-    	button solo_oscilograma
-    	button oscilograma_y_espectrograma
-	choice color_oscilograma 1
-    	button Black
-endform
 
 extensionGraficos$ = ".'extens'"
 
+form Gráficos
+	word nombre_archivo
+	choice tipo_inform 1
+		option hombre
+		option mujer
+		option infante
+	choice extens 1
+    		option png
+    		option pdf
+    		option jpg
+	choice opcion 2
+    		button solo_oscilograma
+    		button oscilograma_y_espectrograma
+	choice color_oscilograma 1
+    		button Black
+		button Blue
+		button Green
+	boolean titular yes
+endform
+
+if tipo_inform = 1
+	maxHz = 5000
+elsif tipo_inform = 2
+	maxHz = 5500
+elsif tipo_inform = 3
+	maxHz = 6500
+endif
+
+spectrograma = To Spectrogram: 0.005, maxHz, 0.002, 20, "Gaussian"
 
 writeInfoLine: extensionGraficos$
 
@@ -40,7 +52,6 @@ if opcion = 1
 	endif
 
 elsif opcion = 2
-
 	if color_oscilograma = 1
 		Black
 		Select inner viewport: 0.5, 6, 0.5, 2
@@ -48,8 +59,8 @@ elsif opcion = 2
 		Draw: 0, 0, 0, 0, "no", "Curve"
 		One mark left: 0, "yes", "no", "yes", ""
 		Draw inner box
-
 		Select inner viewport: 0.5, 6, 2, 4
+
 	select spectrograma
 	Paint: 0, 0, 0, 0, 100, "yes", 50, 6, 0, "no"
 	Marks right every: 1000, 1, "yes", "yes", "yes"
@@ -58,7 +69,6 @@ elsif opcion = 2
 	Remove
 endif
 
-Select outer viewport: 0.5, 6.6, 0.5, 4.1
+Select outer viewport: 0.35, 6.6, 0.5, 4.1
 
-Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/fig_2_tutoria.png"
-
+# Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/fig_2_tutoria.png"
