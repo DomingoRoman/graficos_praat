@@ -3,14 +3,17 @@
 
 Erase all
 
+# Seleccionar carpeta para gráficos
+directorioGraficos$ = chooseDirectory$: "Elige la carpeta para los gráficos"
+
 # selección del sonido
 sonido$ = selected$ ("Sound")
 sonido = selected ("Sound")
 
+# extensión del archivo gráfico
 extensionGraficos$ = ".'extens'"
 
 # Formulario de datos y parámetros
-
 form Gráficos
 	word nombre_archivo
 	choice tipo_inform 1
@@ -20,7 +23,6 @@ form Gráficos
 	choice extens 1
     		option png
     		option pdf
-    		option jpg
 	choice opcion 2
     		button solo_oscilograma
     		button oscilograma_y_espectrograma
@@ -43,10 +45,10 @@ endif
 # Tipo de archivo gráfico
 if extens = 1
 	extens$ = ".png"
+	opcion_guardar = 1
 elsif extens = 2
 	extens$ = ".pdf"
-elsif extens = 3
-	extens$ = ".jpg"
+	opcion_guardar = 2
 endif
 
 spectrograma = To Spectrogram: 0.005, maxHz, 0.002, 20, "Gaussian"
@@ -88,4 +90,8 @@ endif
 
 Select outer viewport: 0.35, 6.6, 0.5, 4.1
 
-# Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/fig_2_tutoria.png"
+if opcion_guardar = 1
+	Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
+elsif opcion_guardar = 2
+	Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
+endif
