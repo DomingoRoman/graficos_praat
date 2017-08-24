@@ -9,6 +9,8 @@ sonido = selected ("Sound")
 
 extensionGraficos$ = ".'extens'"
 
+# Formulario de datos y parámetros
+
 form Gráficos
 	word nombre_archivo
 	choice tipo_inform 1
@@ -29,6 +31,7 @@ form Gráficos
 	boolean titular yes
 endform
 
+# Rango del espectrograma
 if tipo_inform = 1
 	maxHz = 5000
 elsif tipo_inform = 2
@@ -37,29 +40,43 @@ elsif tipo_inform = 3
 	maxHz = 6500
 endif
 
+# Tipo de archivo gráfico
+if extens = 1
+	extens$ = ".png"
+elsif extens = 2
+	extens$ = ".pdf"
+elsif extens = 3
+	extens$ = ".jpg"
+endif
+
 spectrograma = To Spectrogram: 0.005, maxHz, 0.002, 20, "Gaussian"
 
-writeInfoLine: extensionGraficos$
+writeInfoLine: extensionGraficos$, tab$, extens,tab$, extens$,tab$,color_oscilograma
+
+if color_oscilograma = 1
+	color = Black
+elsif color_oscilograma = 2
+	color = Blue
+elsif color_oscilograma = 3
+	color = Green
+endif
 
 if opcion = 1
-	if color_oscilograma = 1
-		Black
-		Select inner viewport: 0.5, 6, 0.5, 2
-		select sonido
-		Draw: 0, 0, 0, 0, "no", "Curve"
-		One mark left: 0, "yes", "no", "yes", ""
-		Draw inner box
-	endif
+	color
+	Select inner viewport: 0.5, 6, 0.5, 2
+	select sonido
+	Draw: 0, 0, 0, 0, "no", "Curve"
+	One mark left: 0, "yes", "no", "yes", ""
+	Draw inner box
 
 elsif opcion = 2
-	if color_oscilograma = 1
-		Black
-		Select inner viewport: 0.5, 6, 0.5, 2
-		select sonido
-		Draw: 0, 0, 0, 0, "no", "Curve"
-		One mark left: 0, "yes", "no", "yes", ""
-		Draw inner box
-		Select inner viewport: 0.5, 6, 2, 4
+	color
+	Select inner viewport: 0.5, 6, 0.5, 2
+	select sonido
+	Draw: 0, 0, 0, 0, "no", "Curve"
+	One mark left: 0, "yes", "no", "yes", ""
+	Draw inner box
+	Select inner viewport: 0.5, 6, 2, 4
 
 	select spectrograma
 	Paint: 0, 0, 0, 0, 100, "yes", 50, 6, 0, "no"
