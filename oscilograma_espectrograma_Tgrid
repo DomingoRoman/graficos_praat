@@ -23,10 +23,10 @@ form Gráficos
 		option mujer
 		option infante
 	choice extens 1
-    	option png
-    	option pdf
+    		option png
+    		option pdf
 	choice color_oscilograma 1
-    	button Black
+    		button Black
 		button Blue
 		button Green
 	boolean titular yes
@@ -49,6 +49,7 @@ elsif extens = 2
 	extens$ = ".pdf"
 	opcion_guardar = 2
 endif
+
 select sonido
 spectrograma = To Spectrogram: 0.005, maxHz, 0.002, 20, "Gaussian"
 
