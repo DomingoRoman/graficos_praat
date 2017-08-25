@@ -1,0 +1,96 @@
+# Gráficos en Praat 6.0.31
+# Gráfico simple: oscilograma espectrograma y marcas (TGrid) de punto
+
+Erase all
+
+# Seleccionar carpeta para gráficos
+directorioGraficos$ = chooseDirectory$: "Elige la carpeta para los gráficos"
+
+# selección del sonido
+sonido$ = selected$ ("Sound")
+sonido = selected ("Sound")
+tgrid = selected("TextGrid")
+
+# extensión del archivo gráfico
+extensionGraficos$ = ".'extens'"
+
+# Formulario de datos y parámetros
+form Gráficos
+	word nombre_archivo
+  natural estrato 1
+	choice tipo_inform 1
+		option hombre
+		option mujer
+		option infante
+	choice extens 1
+    	option png
+    	option pdf
+	choice color_oscilograma 1
+    	button Black
+		button Blue
+		button Green
+	boolean titular yes
+endform
+
+# Rango del espectrograma
+if tipo_inform = 1
+	maxHz = 5000
+elsif tipo_inform = 2
+	maxHz = 5500
+elsif tipo_inform = 3
+	maxHz = 6500
+endif
+
+# Tipo de archivo gráfico
+if extens = 1
+	extens$ = ".png"
+	opcion_guardar = 1
+elsif extens = 2
+	extens$ = ".pdf"
+	opcion_guardar = 2
+endif
+select sonido
+spectrograma = To Spectrogram: 0.005, maxHz, 0.002, 20, "Gaussian"
+
+if color_oscilograma = 1
+	color = Black
+elsif color_oscilograma = 2
+	color = Blue
+elsif color_oscilograma = 3
+	color = Green
+endif
+
+color
+Select inner viewport: 0.5, 6, 0.5, 2
+select sonido
+Draw: 0, 0, 0, 0, "no", "Curve"
+One mark left: 0, "yes", "no", "yes", ""
+Draw inner box
+
+Select inner viewport: 0.5, 6, 2, 4
+select spectrograma
+Paint: 0, 0, 0, 0, 100, "yes", 50, 6, 0, "no"
+Marks right every: 1000, 1, "yes", "yes", "yes"
+Text right: "yes", "KHz"
+Draw inner box
+Remove
+
+Select inner viewport: 0.5, 6, 0.4999999999999996, 4.875
+select tgrid
+Black
+Draw: 0, 0, "yes", "yes", "no"
+Draw inner box
+
+if titular = 0
+	Select outer viewport: 0.35, 6.6, 0.5, 4.875
+elsif titular = 1
+	Select inner viewport: 0.5, 6, 0.4999999999999996, 4.875
+	Text top: "no", sonido$
+	Select outer viewport: 0.35, 6.6, 0.28, 4.875
+endif
+
+if opcion_guardar = 1
+	Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
+elsif opcion_guardar = 2
+	Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
+endif
