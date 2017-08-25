@@ -21,17 +21,18 @@ form Gráficos
 		option mujer
 		option infante
 	choice extens 1
-    	option png
-    	option pdf
-	choice opcion 2
-    	button solo_oscilograma
-    	button oscilograma_y_espectrograma
-	choice color_pitch 1
-    	button Black
+    		option png
+    		option pdf
+	choice color_oscilograma 1
+	   	button Black
 		button Blue
 		button Green
+	choice color_pitch 2
+    		button Black
+		button Blue
+		button Magenta
+		button Red
 	boolean titular yes
-    boolean superpuestos yes
 endform
 
 
@@ -46,6 +47,8 @@ elsif tipo_inform = 3
   tope_tono = 800
 endif
 
+tono = To Pitch: 0, piso_tono, tope_tono
+
 # Tipo de archivo gráfico
 if extens = 1
 	extens$ = ".png"
@@ -55,7 +58,24 @@ elsif extens = 2
 	opcion_guardar = 2
 endif
 
-tono: To Pitch: 0, piso_tono, tope_tono
+Select inner viewport: 0.5, 6, 0.5, 2
+select sonido
+
+if color_oscilograma = 1
+	color = Black
+elsif color_oscilograma = 2
+	color = Blue
+elsif color_oscilograma = 3
+	color = Magenta
+elsif color_oscilograma = 4
+	color = Red
+endif
+
+color
+Draw: 0, 0, 0, 0, "no", "Curve"
+One mark left: 0, "yes", "no", "yes", ""
+Draw inner box
+select tono
 
 if color_pitch = 1
 	color = Black
@@ -63,34 +83,27 @@ elsif color_pitch = 2
 	color = Blue
 elsif color_pitch = 3
 	color = Magenta
+elsif color_pitch = 4
+	color = Red
 endif
 
-if opcion = 1
-	color
-	Select inner viewport: 0.5, 6, 0.5, 2
-	select sonido
-	Draw: 0, 0, 0, 0, "no", "Curve"
-	One mark left: 0, "yes", "no", "yes", ""
-	Draw inner box
+color_pitch
+Select inner viewport: 0.5, 6, 2, 4
+Speckle size: 1.5
+Speckle: 0, 0, piso_tono, tope_tono, "no"
+Marks right every: 1, 100, "yes", "yes", "yes"
+Text right: "yes", "Hz"
+Draw inner box
+Remove
 
-elsif opcion = 2
-	color
-	Select inner viewport: 0.5, 6, 0.5, 2
-	select sonido
-	Draw: 0, 0, 0, 0, "no", "Curve"
-	One mark left: 0, "yes", "no", "yes", ""
-	Draw inner box
-	Select inner viewport: 0.5, 6, 2, 4
+Speckle size: 1
+Black
 
-	select spectrograma
-	Paint: 0, 0, 0, 0, 100, "yes", 50, 6, 0, "no"
-	Marks right every: 1000, 1, "yes", "yes", "yes"
-	Text right: "yes", "KHz"
-	Draw inner box
-	Remove
+if titular = 1
+Select outer viewport: 0.35, 6.6, 0.3, 4.1
+Text top: "yes", sonido$
+elsif Select outer viewport: 0.35, 6.6, 0.5, 4.1
 endif
-
-Select outer viewport: 0.35, 6.6, 0.5, 4.1
 
 if opcion_guardar = 1
 	Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
