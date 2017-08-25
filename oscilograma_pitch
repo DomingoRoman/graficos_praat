@@ -21,39 +21,29 @@ form Gráficos
 		option mujer
 		option infante
 	choice extens 1
-    		option png
-    		option pdf
+    	option png
+    	option pdf
 	choice opcion 2
-    		button solo_oscilograma
-    		button oscilograma_y_espectrograma
-	choice color_oscilograma 1
-    		button Black
+    	button solo_oscilograma
+    	button oscilograma_y_espectrograma
+	choice color_pitch 1
+    	button Black
 		button Blue
 		button Green
 	boolean titular yes
+    boolean superpuestos yes
 endform
 
 
 if tipo_inform = 1
-  piso_tono = 
-  tope_tono =
-elsif
-   piso_tono = 
-  tope_tono =
-
-
-  piso_tono = 
-  tope_tono =
-
-
-
-# Rango del espectrograma
-if tipo_inform = 1
-	maxHz = 5000
+  piso_tono = 75
+  tope_tono = 350
 elsif tipo_inform = 2
-	maxHz = 5500
+  piso_tono = 120
+  tope_tono = 500
 elsif tipo_inform = 3
-	maxHz = 6500
+  piso_tono = 200
+  tope_tono = 800
 endif
 
 # Tipo de archivo gráfico
@@ -65,16 +55,14 @@ elsif extens = 2
 	opcion_guardar = 2
 endif
 
-spectrograma = To Spectrogram: 0.005, maxHz, 0.002, 20, "Gaussian"
+tono: To Pitch: 0, piso_tono, tope_tono
 
-writeInfoLine: extensionGraficos$, tab$, extens,tab$, extens$,tab$,color_oscilograma
-
-if color_oscilograma = 1
+if color_pitch = 1
 	color = Black
-elsif color_oscilograma = 2
+elsif color_pitch = 2
 	color = Blue
-elsif color_oscilograma = 3
-	color = Green
+elsif color_pitch = 3
+	color = Magenta
 endif
 
 if opcion = 1
