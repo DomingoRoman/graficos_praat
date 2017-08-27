@@ -1,5 +1,6 @@
 # Gráficos en Praat 6.0.31
-# Gráfico simple: oscilograma espectrograma y marcas (TGrid) de punto
+# Gráfico simple: oscilograma espectrograma de banda ancha
+# y marcas en un TextGrid de punto
 
 Erase all
 
