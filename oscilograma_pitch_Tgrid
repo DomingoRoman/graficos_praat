@@ -99,7 +99,7 @@ Remove
 Speckle size: 1
 Black
 
-Select inner viewport: 0.5, 6, 0.4999999999999996, 4.875
+Select inner viewport: 0.5, 6, 0.5, 4.875
 select tgrid
 Black
 Draw: 0, 0, "yes", "yes", "no"
