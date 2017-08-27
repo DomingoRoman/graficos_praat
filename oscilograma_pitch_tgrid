@@ -1,0 +1,123 @@
+# Gráficos en Praat 6.0.31
+# Gráfico simple: oscilograma y curva de tono
+
+Erase all
+
+# Seleccionar carpeta para gráficos
+directorioGraficos$ = chooseDirectory$: "Elige la carpeta para los gráficos"
+
+# selección del sonido
+sonido$ = selected$ ("Sound")
+sonido = selected ("Sound")
+tgrid = selected("TextGrid")
+
+# extensión del archivo gráfico
+extensionGraficos$ = ".'extens'"
+
+# Formulario de datos y parámetros
+form Gráficos
+	choice tipo_inform 1
+		option hombre
+		option mujer
+		option infante
+	choice extens 1
+    		option png
+    		option pdf
+	choice color_oscilograma 1
+	   	button Black
+		button Blue
+		button Green
+	choice color_pitch 2
+    		button Black
+		button Blue
+		button Magenta
+		button Red
+	boolean titular yes
+endform
+
+if tipo_inform = 1
+  piso_tono = 75
+  tope_tono = 350
+elsif tipo_inform = 2
+  piso_tono = 120
+  tope_tono = 500
+elsif tipo_inform = 3
+  piso_tono = 200
+  tope_tono = 800
+endif
+
+select sonido
+tono = To Pitch: 0, piso_tono, tope_tono
+
+# Tipo de archivo gráfico
+if extens = 1
+	extens$ = ".png"
+	opcion_guardar = 1
+elsif extens = 2
+	extens$ = ".pdf"
+	opcion_guardar = 2
+endif
+
+color_oscilograma
+
+Select inner viewport: 0.5, 6, 0.5, 2
+select sonido
+
+if color_oscilograma = 1
+	color = Black
+elsif color_oscilograma = 2
+	color = Blue
+elsif color_oscilograma = 3
+	color = Green
+endif
+
+color
+Draw: 0, 0, 0, 0, "no", "Curve"
+One mark left: 0, "yes", "no", "yes", ""
+Draw inner box
+select tono
+
+if color_pitch = 1
+	color = Black
+elsif color_pitch = 2
+	color = Blue
+elsif color_pitch = 3
+	color = Magenta
+elsif color_pitch = 4
+	color = Red
+endif
+
+color
+Select inner viewport: 0.5, 6, 2, 4
+Speckle size: 1.5
+Speckle: 0, 0, piso_tono, tope_tono, "no"
+Marks right every: 1, 100, "yes", "yes", "yes"
+Text right: "yes", "Hz"
+Draw inner box
+Remove
+
+Speckle size: 1
+Black
+
+Select inner viewport: 0.5, 6, 0.4999999999999996, 4.875
+select tgrid
+Black
+Draw: 0, 0, "yes", "yes", "no"
+Draw inner box
+
+if titular = 1
+	Select inner viewport: 0.5, 6, 0.5, 4
+	Text top: "no", sonido$
+	Select outer viewport: 0.35, 6.55, 0.3, 4.9
+	if opcion_guardar = 1
+		Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
+	elsif opcion_guardar = 2
+		Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
+elsif titular = 0
+	Select outer viewport: 0.35, 6.6, 0.5, 4.9
+	if opcion_guardar = 1
+		Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
+	elsif opcion_guardar = 2
+		Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
+	endif
+endif
