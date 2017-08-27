@@ -15,7 +15,6 @@ extensionGraficos$ = ".'extens'"
 
 # Formulario de datos y parámetros
 form Gráficos
-	word nombre_archivo
 	choice tipo_inform 1
 		option hombre
 		option mujer
@@ -34,7 +33,6 @@ form Gráficos
 		button Red
 	boolean titular yes
 endform
-
 
 if tipo_inform = 1
   piso_tono = 75
@@ -58,6 +56,8 @@ elsif extens = 2
 	opcion_guardar = 2
 endif
 
+color_oscilograma
+
 Select inner viewport: 0.5, 6, 0.5, 2
 select sonido
 
@@ -66,9 +66,7 @@ if color_oscilograma = 1
 elsif color_oscilograma = 2
 	color = Blue
 elsif color_oscilograma = 3
-	color = Magenta
-elsif color_oscilograma = 4
-	color = Red
+	color = Green
 endif
 
 color
@@ -87,7 +85,7 @@ elsif color_pitch = 4
 	color = Red
 endif
 
-color_pitch
+color
 Select inner viewport: 0.5, 6, 2, 4
 Speckle size: 1.5
 Speckle: 0, 0, piso_tono, tope_tono, "no"
@@ -100,13 +98,18 @@ Speckle size: 1
 Black
 
 if titular = 1
-Select outer viewport: 0.35, 6.6, 0.3, 4.1
-Text top: "yes", sonido$
-elsif Select outer viewport: 0.35, 6.6, 0.5, 4.1
-endif
-
-if opcion_guardar = 1
-	Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
-elsif opcion_guardar = 2
-	Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
+	Select inner viewport: 0.5, 6, 0.5, 4
+	Text top: "no", sonido$
+	Select outer viewport: 0.35, 6.55, 0.3, 4
+	if opcion_guardar = 1
+		Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
+	elsif opcion_guardar = 2
+		Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
+elsif titular = 0
+	Select outer viewport: 0.35, 6.6, 0.5, 4.1
+	if opcion_guardar = 1
+		Save as PDF file: directorioGraficos$+"/"+sonido$+extens$
+	elsif opcion_guardar = 2
+		Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
+	endif
 endif
