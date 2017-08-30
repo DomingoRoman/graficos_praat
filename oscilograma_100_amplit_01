@@ -14,4 +14,5 @@ Black
 Marks right every: 1, 0.1, "yes", "yes", "yes"
 Text right: "yes", "p"
 Select outer viewport: 0.5, 7, 0.5, 4
-Save as 300-dpi PNG file: "/Applications/PraatScripts/graficos/oscilograma_tpuro.png"
+
+# Save as 300-dpi PNG file: "/Applications/PraatScripts/graficos/oscilograma_tpuro.png"
