@@ -1,0 +1,42 @@
+# Gráficos en Praat 6.0.31
+# Gráfico simple: oscilograma y curva de intensidad
+
+Erase all
+
+# Seleccionar carpeta para gráficos
+directorioGraficos$ = chooseDirectory$: "Elige la carpeta para los gráficos"
+
+# selección del sonido
+sonido$ = selected$ ("Sound")
+sonido = selected ("Sound")
+
+# extensión del archivo gráfico
+extensionGraficos$ = ".'extens'"
+
+extens$ = ".png"
+
+
+
+Select inner viewport: 0.5, 6, 0.5, 2
+Blue
+select sonido
+Draw: 0, 0, 0, 0, "no", "Curve"
+One mark right: 0, "yes", "no", "yes", ""
+Draw inner box
+
+
+To Intensity: 100, 0, "yes"
+
+Select inner viewport: 0.5, 6, 2, 4
+Green
+Line width: 3
+Draw: 0, 0, 30, 100, "no"
+Black
+Line width: 1
+Draw inner box
+Marks right every: 1, 10, "yes", "yes", "yes"
+Remove
+
+Select outer viewport: 0.5, 6.26, 0.5, 4.05
+
+Save as 300-dpi PNG file: "/Applications/PraatScripts/graficos/oscilograma_c_intensidad.png"
