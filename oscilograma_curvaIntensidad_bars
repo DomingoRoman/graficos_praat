@@ -1,0 +1,51 @@
+# Gráficos en Praat 6.0.31
+# Gráfico simple: oscilograma bars y curva de intensidad superpuesta
+
+Erase all
+Line width: 1
+# Seleccionar carpeta para gráficos
+directorioGraficos$ = chooseDirectory$: "Elige la carpeta para los gráficos"
+
+# extensión del archivo gráfico
+extensionGraficos$ = ".'extens'"
+
+extens$ = ".png"
+
+
+# selección del sonido
+sonido$ = selected$ ("Sound")
+sonido = selected ("Sound")
+t = Get total duration
+
+intens = To Intensity: 100, 0, "yes"
+
+max = Get maximum: 0, 0, "Parabolic"
+min = Get minimum: 0, 0, "Parabolic"
+maxi = max + 10
+mini = min -10
+
+
+Select inner viewport: 0.5, 6, 0.5, 2
+Green
+Line width: 3
+
+select intens
+Axes: 0, t, mini, maxi
+Draw: 0, 0, mini, maxi, "no"
+
+Line width: 1
+Marks left every: 1, 10, "yes", "yes", "no"
+
+
+Grey
+select sonido
+Draw: 0, 0, 0, 0, "no", "Bars"
+
+Line width: 1
+Black
+Draw inner box
+Marks right every: 1, 0.25, "yes", "yes", "no"
+
+Save as 300-dpi PNG file: "/Applications/PraatScripts/graficos/oscilograma_c_intensidad_bars.png"
+
+
