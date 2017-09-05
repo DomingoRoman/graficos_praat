@@ -1,0 +1,172 @@
+carpetaGraficos$ = chooseDirectory$("Escoge el directorio de GRAFICOS...")
+
+pause Seleccione la tabla (1) _Gene  el Pitch Object
+
+pitch = selected ("Pitch")
+tabla1 = selected ("Table")
+tabla1$ = selected$ ("Table")
+
+# y las (2) _Espe 
+
+pause Seleccione la tabla (2) _Espe 
+tabla2 = selected ("Table")
+tabla2$ = selected$ ("Table")
+
+
+# Encuenta la duración del audio
+
+select tabla1
+duracion_sonido = Get value: 1, "Duracion_audio"
+
+
+#################################################################################
+#################################################################################
+### Crea el tier de tono para la sintesis
+#################################################################################
+#################################################################################
+
+tier_tono_Hz = Create PitchTier: "tono", 0, duracion_sonido
+
+#################################################################################
+#################################################################################
+### máximo, mínimo y promedio
+### para poner límites superior e inferior al gráfico
+#################################################################################
+#################################################################################
+
+select tabla1
+max = Get value: 1, "Max"
+
+min = Get value: 1, "Min"
+x_Hz = Get value: 1, "XHz"
+
+lim_sup = max + 100
+
+
+#################################################################################
+#################################################################################
+### Condiciones para subir el tramo de las marcas
+#################################################################################
+#################################################################################
+
+if lim_sup < 300
+	limiteSuperior = 300
+	tramo = 25
+elsif lim_sup < 400
+	limiteSuperior = 400
+	tramo = 50
+elsif lim_sup < 500
+	limiteSuperior = 500
+	tramo = 100
+elsif lim_sup < 700
+	limiteSuperior = 700
+	tramo = 150
+endif
+
+Erase all
+Select inner viewport: 0.5, 8, 0.5, 3.5
+Axes: 0, duracion_sonido, 0, lim_sup
+
+select tabla2
+puntos = Get number of rows
+
+for i to puntos
+	hz = Get value: i, "Hz"
+	tiempo = Get value: i, "tiempo"
+	vocal$ = Get value: i, "vocal"
+	One mark bottom: tiempo, "no", "yes", "yes", vocal$
+endfor
+
+## Crea el fondo del grafico con color lilaceo
+
+Paint rectangle:  0.95, 0, duracion_sonido, 0, lim_sup
+Marks right every: 1, tramo, "no", "yes", "yes"
+Marks right every: 1, tramo*2, "yes", "yes", "yes"
+
+
+#################################################################################
+#################################################################################
+### Grafica 
+### a) tono suavizado. Requiere objeto Pitch
+### b) tono normal
+### c) tono estilizado (1 punto por vocal)
+#################################################################################
+#################################################################################
+
+select pitch
+
+suavizado = Smooth: 10
+Cyan
+Speckle size: 2.5
+Speckle: 0, 0, 0, limiteSuperior, "no"
+select pitch
+Speckle size: 0.5
+Magenta
+Speckle: 0, 0, 0, limiteSuperior, "no"
+
+select tabla2
+puntos = Get number of rows
+
+for i to puntos
+	select tabla2
+	tiempo = Get value: i, "tiempo"
+	etiqueta$ = Get value: i, "vocal"
+	hz = Get value: i, "Hz"
+	select tier_tono_Hz
+		Add point: tiempo, hz
+	One mark bottom: tiempo, "no", "yes", "yes", etiqueta$
+	Paint circle (mm): "black", tiempo, hz, 2.5
+endfor
+
+select tabla2
+valorTemporal1 = Get value: 1, "tiempo"
+valortemporalF = Get value: puntos, "tiempo"
+f0_inicio = Get value: 1, "Hz"
+f0_final =  Get value: puntos, "Hz"
+
+select tier_tono_Hz
+
+Dashed line
+Line width: 1.5
+Black
+Draw: 0, 0, 0, limiteSuperior, "no", "lines and speckles"
+
+# borra lineas sobrantes antes del primer punto y despues del ultimo
+
+Colour:  0.95
+Line width: 3
+Solid line
+Draw line: 0.0001, f0_inicio, valorTemporal1, f0_inicio
+Draw line: valortemporalF, f0_final, duracion_sonido, f0_final
+Line width: 1
+Paint circle (mm): "black", valorTemporal1, f0_inicio, 2.5
+Paint circle (mm): "black", valortemporalF, f0_final, 2.5
+
+##### Traza pendiente
+Green
+Dashed line
+Draw arrow: valorTemporal1,f0_inicio , valortemporalF, f0_final
+
+Black
+Solid line
+Draw line: 0, x_Hz, duracion_sonido, x_Hz
+One mark left: x_Hz, "no", "yes", "no", "X"
+
+# Maximo y minimo
+## este color se puede oscurecer mas
+Blue
+## este color se puede oscurecer mas
+
+Dashed line
+Line width: 0.5
+Draw line: 0, max, duracion_sonido, max
+Draw line: 0, min, duracion_sonido, min
+One mark left: max, "no", "yes", "no", "M"
+One mark left: min, "no", "yes", "no", "m"
+
+Black
+Line width: 1
+Draw inner box
+Select outer viewport: 0.3, 8.3, 0.5, 3.8
+
+#Save as PDF file: "/Users/imac/Documents/web_lab/proyectos/velocidadDeHabla/tabla1$.pdf"
