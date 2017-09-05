@@ -1,0 +1,158 @@
+#################################################################
+#################################################################
+#################################################################
+## SEGUNDO GRÁFICO: SEMITONOS REFERIDO AL PROMEDIO
+#################################################################
+#################################################################
+#################################################################
+
+carpetaGraficos$ = chooseDirectory$("Escoge el directorio de GRAFICOS...")
+
+pause Seleccione la tabla (1) _Gene y el Pitch Object
+
+pitch = selected ("Pitch")
+tabla1 = selected ("Table")
+tabla1$ = selected$ ("Table")
+
+pause Seleccione la tabla (2) _Espe
+
+tabla2 = selected ("Table")
+tabla2$ = selected$ ("Table")
+
+# Encuenta la duración del audio
+
+select tabla1
+duracion_sonido = Get value: 1, "Duracion_audio"
+
+#################################################################
+### límite inferior para el gráfico de st
+#################################################################
+
+st_inf = Get value: 1, "StMin_X"
+
+lim_inf = st_inf + 2
+lim_inf = lim_inf*-1
+
+st_sup = Get value: 1, "StMax_X"
+lim_sup = st_sup *-1
+lim_sup = lim_sup + 4
+
+if lim_inf > -2
+		limiteInferior = -2
+	elsif lim_inf > -5
+		limiteInferior = -5
+	elsif lim_inf > -10
+		limiteInferior = -10
+	elsif lim_inf > -5
+		limiteInferior = -5
+	else limiteInferior = -2
+endif
+
+#################################################################
+### límite superior para el gráfico de st
+#################################################################
+
+if lim_sup < 2
+		limiteSuperior = 2
+	elsif lim_sup < 5
+		limiteSuperior = 5
+	elsif lim_sup < 10
+		limiteSuperior = 10
+	elsif lim_sup < 15
+		limiteSuperior = 15
+	else limiteSuperior = 20
+endif
+
+#################################################################
+### Area del grafico 
+#################################################################
+Erase all
+Line width: 1
+Select inner viewport: 0.5, 8, 0.5, 3
+Axes: 0, duracion_sonido, limiteInferior,limiteSuperior
+Paint rectangle: "{0.9,0.9,0.9}", 0, duracion_sonido, 0, limiteSuperior
+Paint rectangle: "{0.8,0.8,0.8}", 0, duracion_sonido, limiteInferior, 0
+
+Draw inner box
+Marks left every: 1, 2, "yes", "yes", "yes"
+
+tier_tono_st = Create PitchTier: "tonoSt", 0, duracion_sonido
+select tabla2
+puntos = Get number of rows
+
+for i to puntos
+	select tabla2
+		st = Get value: i, "StAlX"
+		etiqueta$ =  Get value: i, "vocal"
+		tiempo =  Get value: i, "tiempo"
+	select tier_tono_st
+		Add point: tiempo, st
+		Paint circle (mm): "Red", tiempo, st, 2
+		One mark bottom: tiempo, "no", "yes", "yes", etiqueta$
+endfor
+
+select tier_tono_st
+Dashed line
+Black
+Draw: 0, 0, limiteInferior, limiteSuperior, "no", "lines"
+
+for i to puntos
+	select tabla2
+		st = Get value: i, "StAlX"
+		tiempo =  Get value: i, "tiempo"
+		Paint circle (mm): "Red", tiempo, st, 2
+endfor
+
+tiempo_marca_1 =  Get value: 1, "tiempo"
+tiempo_marca_f =  Get value: puntos, "tiempo"
+st_marca_1 = Get value: 1, "StAlX"
+st_marca_f =Get value: puntos, "StAlX"
+
+
+#################################################################
+#################################################################
+#### Borra lineas sobrantes  #### 
+#################################################################
+#################################################################
+
+Line width: 3
+Solid line
+if st_marca_1 < 0
+	Colour: "{0.800000,0.800000,0.800000}"
+	Draw line: 0.001, st_marca_1, tiempo_marca_1, st_marca_1
+	else Colour: "{0.9,0.9,0.9}"
+	Draw line: 0.001, st_marca_1, tiempo_marca_1, st_marca_1	
+endif
+
+
+if st_marca_f > 0
+	Colour: "{0.9,0.9,0.9}"
+	Draw line: tiempo_marca_f, st_marca_f, duracion_sonido, st_marca_f
+	else Colour: "{0.9,0.9,0.9}"
+	Draw line: 0.001, st_marca_1, tiempo_marca_1, st_marca_1	
+endif
+
+
+Draw line: 0.002, st_marca_1,tiempo_marca_1,st_marca_1
+Draw line: tiempo_marca_f, st_marca_f,duracion_sonido,st_marca_f
+
+Paint circle (mm): "Red", tiempo_marca_1, st_marca_1, 2
+Paint circle (mm): "Red", tiempo_marca_f, st_marca_f, 2
+
+
+
+Black
+Line width: 1
+
+
+
+Select outer viewport: 0.2, 8, 0.4, 3.3
+
+################################################################# 
+#################################################################
+## SALVACIÓN DE OBJETOS #### 
+#################################################################
+#################################################################
+extensionGraf2$ = "_stX.pdf"
+nombreGraf2$= tabla1$ + extensionGraf2$
+Save as PDF file: "'carpetaGraficos$'/'nombreGraf2$'"
