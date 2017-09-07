@@ -4,6 +4,7 @@ Select inner viewport: 1, 6, 1, 6
 Draw inner box
 Axes: 0, 4000, 0, 10
 Marks bottom every: 1, 500, "yes", "yes", "yes"
+Marks left every: 1, 1, "yes", "yes", "yes"
 
 Paint circle: "red", 50, 1, 40
 Paint circle: "red", 100, 2, 40
@@ -13,5 +14,5 @@ Paint circle: "red", 800, 5, 40
 Paint circle: "red", 1600, 6, 40
 Paint circle: "red", 3200, 7, 40
 
-Select outer viewport: 0.9, 6.2, 1, 6.3
+Select outer viewport: 0.8, 6.2, 0.9, 6.3
 Save as PDF file: "/Users/imac/Documents/2017/fonetica_2017_2/hz_st.pdf"
