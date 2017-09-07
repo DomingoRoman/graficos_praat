@@ -1,0 +1,21 @@
+Erase all
+Select inner viewport: 1, 6, 1, 6
+
+Draw inner box
+Axes: 0, 3000, 0, 7
+Marks bottom every: 1, 500, "yes", "yes", "yes"
+Marks left every: 1, 1, "yes", "yes", "yes"
+
+Text bottom: "yes", "Hz"
+Text left: "yes", "Octavas"
+
+Paint circle (mm): "red", 32.703196, 0, 3
+Paint circle (mm): "red", 65.406391, 1, 3
+Paint circle (mm): "red", 130.812783, 2, 3
+Paint circle (mm): "red", 261.625565, 3, 3
+Paint circle (mm): "red", 523.251131, 4, 3
+Paint circle (mm): "red", 1046.502261, 5, 3
+Paint circle (mm): "red", 2093.004522, 6, 3
+
+Select outer viewport: 0.4, 6.2, 0.9, 6.4
+Save as PDF file: "/Users/imac/Documents/2017/fonetica_2017_2/hz_6_octavas.pdf"
