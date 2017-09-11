@@ -6,7 +6,8 @@ directorioGraficos$ = chooseDirectory$: "Elige la carpeta para los gráficos"
 
 Select inner viewport: 0.5, 6.49, 0.5, 4
 Erase all
-Create Sound from formula: "100_Hz_008_p", 1, 0, 0.08, 16000, "1/2 * sin(2*pi*100*x)"
+sonido = Create Sound from formula: "100_Hz_008_p", 1, 0, 0.08, 16000, "1/2 * sin(2*pi*100*x)"
+sonido$ = selected$("Sound")
 Blue
 Draw: 0, 0, 0, 0, "no", "Speckles"
 Draw inner box
@@ -15,4 +16,5 @@ Marks right every: 1, 0.1, "yes", "yes", "yes"
 Text right: "yes", "p"
 Select outer viewport: 0.5, 7, 0.5, 4
 
-# Save as 300-dpi PNG file: "/Applications/PraatScripts/graficos/oscilograma_tpuro.png"
+extens$ = ".png"
+Save as 300-dpi PNG file: directorioGraficos$+"/"+sonido$+extens$
