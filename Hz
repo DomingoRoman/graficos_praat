@@ -1,0 +1,25 @@
+# Gráficos en Praat 6.0.31
+
+# genera gráfico de hz a partir de una tabla de valores
+
+Erase all
+
+# Seleccionar carpeta para gráficos
+directorioGraficos$ = chooseDirectory$: "Elige la carpeta para los gráficos"
+
+# selección de la tabla
+tabla$ = selected$ ("Table")
+
+filas = Get number of rows
+# primer valor
+
+inicial = Get value: 1, "tiempo"
+
+fn = Get value: filas, "tiempo"
+
+durAudio = inicial + fn
+
+# extensión del archivo gráfico
+extensionGraficos$ = ".'extens'"
+extens$ = ".png"
+
