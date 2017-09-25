@@ -1,0 +1,31 @@
+
+Select inner viewport: 0.5, 6, 0.5, 4
+Axes: 0, 50, 0, 50
+Draw inner box
+
+for i to 50
+	Draw line: i, 0, i, 50
+endfor
+
+for i to 50
+	Draw line: 0, i, 50, i
+endfor
+
+Axes: 0, 50, -1, 1
+
+One mark left: 0, "yes", "yes", "no", ""
+One mark left: 1, "yes", "yes", "no", ""
+One mark left: -1, "yes", "yes", "no", ""
+
+
+i = 2
+
+for i to 25
+	One mark bottom: i*2, "yes", "yes", "no", ""
+endfor
+
+Draw line: 0, 0, 50, 0
+
+Select outer viewport: 0.3, 6.1, 0.4, 4.2
+
+Save as 300-dpi PNG file: "/Users/historiadores/Documents/Domingo/2017_fonetica/praat.png"
