@@ -7,7 +7,7 @@ sonido$ = selected$("Sound")
 sexo$ = mid$(sonido$,5)
 
 if sexo$ = "h"
-	techo = 300
+	techo = 500
 endif
 
 ### Normaliza, remuestrea y filtra
@@ -66,7 +66,7 @@ Speckle: 0, 0, 0, techo, "no"
 Line width: 1
 Red
 select tono_smo
-Draw: 0, 0, 0, 300, "no"
+Draw: 0, 0, 0, techo, "no"
 
 Blue
 Line width: 0.5
@@ -82,3 +82,4 @@ Select outer viewport: 0.5, 8.3, 0.2, 3.6
 Save as 600-dpi PNG file: sonido$ +".png"
 
 Erase all
+
