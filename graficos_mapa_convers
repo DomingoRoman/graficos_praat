@@ -1,0 +1,84 @@
+#### Sonido y Pitch editado
+Black
+Line width: 1
+sonido = selected("Sound")
+tono_nat = selected("Pitch")
+sonido$ = selected$("Sound")
+sexo$ = mid$(sonido$,5)
+
+if sexo$ = "h"
+	techo = 300
+endif
+
+### Normaliza, remuestrea y filtra
+select sonido
+dur = Get total duration
+dur$ = fixed$(dur,3)
+
+Scale peak: 0.99
+fm= Get sampling frequency
+
+if fm = 44100 or fm = 22050
+	Resample: 16000, 50
+endif
+
+Filter (stop Hann band): 0, 70, 100
+
+### Asigna nombre "sonido" a la variable.
+sonido = selected("Sound")
+
+### Alisa el tono
+select tono_nat
+tono_smo = Smooth: 10
+
+### Crear el estilizado
+select tono_nat
+plus sonido
+To Manipulation
+
+tono_man = Extract pitch tier
+
+
+### Dibuja el oscilograma
+Select inner viewport: 0.5, 8, 0.5, 1.5
+Axes: 0, dur, -1, 1
+Paint rectangle: "{0.8,0.8,0.8}", 0, dur, -1, 1
+
+select  sonido
+
+Blue
+
+Draw: 0, 0, 0, 0, "no", "Curve"
+Draw inner box
+Text top: "no", dur$ + " segs"
+
+
+#### Dibujar tono
+Select inner viewport: 0.5, 8, 1.5, 3.5
+Axes: 0, dur, 0, techo
+Paint rectangle: "{0.9,0.9,0.9}", 0, dur, 0, techo
+Line width: 3
+Grey
+
+select tono_nat
+Speckle: 0, 0, 0, techo, "no"
+
+Line width: 1
+Red
+select tono_smo
+Draw: 0, 0, 0, 300, "no"
+
+Blue
+Line width: 0.5
+select tono_man
+Draw inner box
+
+Draw inner box
+Marks right every: 1, 50, "no", "yes", "yes"
+Marks right every: 1, 100, "yes", "no", "no"
+
+Select outer viewport: 0.5, 8.3, 0.2, 3.6
+
+Save as 600-dpi PNG file: sonido$ +".png"
+
+Erase all
