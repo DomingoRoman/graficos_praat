@@ -1,5 +1,7 @@
 #### Sonido y Pitch editado
-
+Black
+Line width: 1
+Speckle size: 1
 sonido = selected("Sound")
 tono_nat = selected("Pitch")
 sonido$ = selected$("Sound")
@@ -37,7 +39,9 @@ select tono_nat
 plus sonido
 To Manipulation
 tono_man = Extract pitch tier
-
+Stylize: 2, "Semitones"
+n_puntos_tono_man = Get number of points
+n_puntos_tono_man = n_puntos_tono_man -1
 
 ### Dibuja el oscilograma
 Select inner viewport: 0.5, 8, 0.5, 1.5
@@ -45,12 +49,12 @@ Axes: 0, dur, -1, 1
 Paint rectangle: "{0.8,0.8,0.8}", 0, dur, -1, 1
 
 select  sonido
-
 Blue
 
 Draw: 0, 0, 0, 0, "no", "Curve"
 Draw inner box
-Text top: "no", dur$ + " segs"
+# Text top: "no", dur$ + " segs"
+
 
 #### Dibujar tono ####
 Select inner viewport: 0.5, 8, 1.5, 3.5
@@ -69,17 +73,26 @@ Speckle: 0, 0, 0, techo, "no"
 
 Blue
 Speckle size: 0.25
+#select tono_man
+#Draw: 0, 0, 0, techo, "no", "lines and speckles"
+
 select tono_man
-Draw: 0, 0, 0, techo, "no", "speckles"
+
+for i to n_puntos_tono_man
+	tiempo_i_i = Get time from index: i
+	tiempo_i_f = Get time from index: i + 1
+	hz_i_i = Get value at time: tiempo_i_i
+	hz_i_f = Get value at time: tiempo_i_f
+	Draw line: tiempo_i_i, hz_i_i, tiempo_i_f, hz_i_f
+endfor
 
 Draw inner box
 Marks right every: 1, 50, "no", "yes", "yes"
 Marks right every: 1, 100, "yes", "no", "no"
 
 Select outer viewport: 0.5, 8.3, 0.2, 3.6
+
 Save as 600-dpi PNG file: sonido$ +".png"
 
-Black
-Line width: 1
 Speckle size: 1
 Erase all
