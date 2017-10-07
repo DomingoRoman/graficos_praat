@@ -1,6 +1,5 @@
 #### Sonido y Pitch editado
-Black
-Line width: 1
+
 sonido = selected("Sound")
 tono_nat = selected("Pitch")
 sonido$ = selected$("Sound")
@@ -8,6 +7,8 @@ sexo$ = mid$(sonido$,5)
 
 if sexo$ = "h"
 	techo = 500
+elsif sexo$ ="m"
+	techo = 700
 endif
 
 ### Normaliza, remuestrea y filtra
@@ -35,7 +36,6 @@ tono_smo = Smooth: 10
 select tono_nat
 plus sonido
 To Manipulation
-
 tono_man = Extract pitch tier
 
 
@@ -52,34 +52,34 @@ Draw: 0, 0, 0, 0, "no", "Curve"
 Draw inner box
 Text top: "no", dur$ + " segs"
 
-
-#### Dibujar tono
+#### Dibujar tono ####
 Select inner viewport: 0.5, 8, 1.5, 3.5
 Axes: 0, dur, 0, techo
 Paint rectangle: "{0.9,0.9,0.9}", 0, dur, 0, techo
-Line width: 3
-Grey
 
+Speckle size: 1.5
+Grey
 select tono_nat
 Speckle: 0, 0, 0, techo, "no"
 
-Line width: 1
+Speckle size: 0.5
 Red
 select tono_smo
-Draw: 0, 0, 0, techo, "no"
+Speckle: 0, 0, 0, techo, "no"
 
 Blue
-Line width: 0.5
+Speckle size: 0.25
 select tono_man
-Draw inner box
+Draw: 0, 0, 0, techo, "no", "speckles"
 
 Draw inner box
 Marks right every: 1, 50, "no", "yes", "yes"
 Marks right every: 1, 100, "yes", "no", "no"
 
 Select outer viewport: 0.5, 8.3, 0.2, 3.6
-
 Save as 600-dpi PNG file: sonido$ +".png"
 
+Black
+Line width: 1
+Speckle size: 1
 Erase all
-
