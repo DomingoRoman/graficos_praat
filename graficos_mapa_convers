@@ -1,3 +1,32 @@
+# Script para Praat
+# Laboratorio de Fonética USACH
+# 2017
+# Proyecto: Mapa prosódico de Chile
+#
+#
+# Este script es software libre: puede ser distribuido
+# y/o modificado bajo los términos de la licencia
+# GNU General Public License publicada por la Free Software
+# Foundation, ya sea en su versión 3 o (según se prefiera)
+# cualquier versión posterior.
+#
+# Este script se distribuye con la intención de que sea útil,
+# pero SIN GARANTÍA ALGUNA; ni siquiera con la garantía
+# implícita de COMERCIABILIDAD o de PROPIEDAD PARA UN FIN
+# PARTICULAR. Más detalles pueden encontrarse en el texto de
+# la GNU General Public License.
+#
+# El script debería haber sido distribuido con una copia de la
+# GNU General Public License. Si no es el caso, este puede encontrarse en
+# <http://www.gnu.org/licenses/>.
+#
+# Copyright 2017 Domingo Román
+#
+#
+
+
+
+
 #### Sonido y Pitch editado
 Black
 Line width: 1
@@ -30,7 +59,8 @@ endif
 Filter (stop Hann band): 0, 70, 100
 
 ### Asigna nombre "sonido" al sonido filtrado.
-sonido = selected("Sound")
+sonido_a = selected("Sound")
+
 
 ### Alisa el tono
 select tono_nat
@@ -38,8 +68,8 @@ tono_smo = Smooth: 10
 
 ### Crear el estilizado
 select tono_nat
-plus sonido
-To Manipulation
+plus sonido_a
+manip = To Manipulation
 tono_man = Extract pitch tier
 Stylize: 2, "Semitones"
 n_puntos_tono_man = Get number of points
@@ -50,12 +80,15 @@ Select inner viewport: 0.5, 8, 0.5, 1.5
 Axes: 0, dur, -1, 1
 Paint rectangle: "{0.8,0.8,0.8}", 0, dur, -1, 1
 
-select  sonido
+select  sonido_a
 Blue
 
 Draw: 0, 0, 0, 0, "no", "Curve"
 Draw inner box
-# Text top: "no", dur$ + " segs"
+
+
+Black
+Text special: dur, "Right", 1, "Bottom", "Times", 8, "0", "("+dur$+" segs)"
 
 
 #### Dibujar tono ####
@@ -92,8 +125,19 @@ Draw inner box
 Marks right every: 1, 50, "no", "yes", "yes"
 Marks right every: 1, 100, "yes", "no", "no"
 
-Select outer viewport: 0.5, 8.3, 0.2, 3.6
+Select outer viewport: 0.5, 8.3, 0.3, 3.6
 
 Save as 600-dpi PNG file: sonido$ +".png"
+select sonido_a
+Save as WAV file: sonido$ + ".wav"
 
+pause
 Erase all
+
+select sonido_a
+plus sonido
+plus tono_man
+plus tono_smo
+plus tono_nat
+plus manip
+Remove
