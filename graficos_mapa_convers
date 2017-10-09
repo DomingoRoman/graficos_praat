@@ -19,6 +19,8 @@ dur = Get total duration
 dur$ = fixed$(dur,3)
 
 Scale peak: 0.99
+Subtract mean
+
 fm= Get sampling frequency
 
 if fm = 44100 or fm = 22050
@@ -27,7 +29,7 @@ endif
 
 Filter (stop Hann band): 0, 70, 100
 
-### Asigna nombre "sonido" a la variable.
+### Asigna nombre "sonido" al sonido filtrado.
 sonido = selected("Sound")
 
 ### Alisa el tono
