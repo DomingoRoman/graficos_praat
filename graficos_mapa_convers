@@ -3,7 +3,6 @@
 # 2017
 # Proyecto: Mapa prosódico de Chile
 #
-#
 # Este script es software libre: puede ser distribuido
 # y/o modificado bajo los términos de la licencia
 # GNU General Public License publicada por la Free Software
@@ -24,7 +23,7 @@
 #
 #
 
-
+Elige directorio
 directorio$ = chooseDirectory$: "Elige la carpeta para los gráficos"
 
 #### Sonido y Pitch editado
@@ -61,7 +60,6 @@ Filter (stop Hann band): 0, 70, 100
 ### Asigna nombre "sonido" al sonido filtrado.
 sonido_a = selected("Sound")
 
-
 ### Alisa el tono
 select tono_nat
 tono_smo = Smooth: 10
@@ -85,8 +83,6 @@ Blue
 
 Draw: 0, 0, 0, 0, "no", "Curve"
 Draw inner box
-
-
 Black
 Text special: dur, "Right", 1, "Bottom", "Times", 8, "0", "("+dur$+" segs)"
 
@@ -125,15 +121,19 @@ Draw inner box
 Marks right every: 1, 50, "no", "yes", "yes"
 Marks right every: 1, 100, "yes", "no", "no"
 
+# Guarda los gráfico
 Select outer viewport: 0.5, 8.3, 0.3, 3.6
+Save as 600-dpi PNG file: directorio$+"/"+sonido$+".png"
 
-Save as 600-dpi PNG file: sonido$ +".png"
+# Guarda audio submuestreado
 select sonido_a
-Save as WAV file: sonido$ + ".wav"
+Save as WAV file: directorio$+"/"+sonido$+".wav"
 
+# Muestra y Borra el gráfico
 pause
 Erase all
 
+# Remueve los objetos de PraatObjects
 select sonido_a
 plus sonido
 plus tono_man
