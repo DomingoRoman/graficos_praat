@@ -25,7 +25,7 @@
 #
 
 
-
+directorio$ = chooseDirectory$: "Elige la carpeta para los gráficos"
 
 #### Sonido y Pitch editado
 Black
