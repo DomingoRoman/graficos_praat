@@ -23,7 +23,8 @@
 #
 #
 
-Elige directorio
+# Selecciona el directorio
+
 directorio$ = chooseDirectory$: "Elige la carpeta para los gráficos"
 
 #### Sonido y Pitch editado
@@ -45,14 +46,14 @@ endif
 select sonido
 dur = Get total duration
 dur$ = fixed$(dur,3)
-
 Scale peak: 0.99
 Subtract mean
+
 
 fm= Get sampling frequency
 
 if fm = 44100 or fm = 22050
-	Resample: 16000, 50
+	remuestr = Resample: 16000, 50
 endif
 
 Filter (stop Hann band): 0, 70, 100
@@ -84,7 +85,7 @@ Blue
 Draw: 0, 0, 0, 0, "no", "Curve"
 Draw inner box
 Black
-Text special: dur, "Right", 1, "Bottom", "Times", 8, "0", "("+dur$+" segs)"
+Text special: dur, "Right", 0.8, "Bottom", "Times", 8, "0", "("+dur$+" segs)"
 
 
 #### Dibujar tono ####
@@ -135,6 +136,7 @@ Erase all
 
 # Remueve los objetos de PraatObjects
 select sonido_a
+plus remuestr
 plus sonido
 plus tono_man
 plus tono_smo
