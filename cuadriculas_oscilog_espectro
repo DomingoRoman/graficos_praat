@@ -1,0 +1,22 @@
+# dibuja cuadrícula para forma de onda
+Select inner viewport: 0.5, 6, 0.5, 2.5
+Axes: 0, 100, -1, 1
+Draw inner box
+
+Marks bottom every: 1, 10, "no", "yes", "yes"
+
+Marks right every: 1, 0.2, "yes", "yes", "yes"
+
+Select outer viewport: 0.4, 6.3, 0.4, 2.6
+pause
+
+Erase all
+
+
+Select inner viewport: 0.5, 5, 0.5, 4
+Axes: 0, 100, 0, 1
+Marks bottom every: 1, 10, "no", "yes", "yes"
+Marks right every: 1, 0.1, "yes", "yes", "yes"
+
+Draw inner box
+Select outer viewport: 0.5, 5.2, 0.4, 4.1
