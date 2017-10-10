@@ -28,6 +28,7 @@
 directorio$ = chooseDirectory$: "Elige la carpeta para los gráficos"
 
 #### Sonido y Pitch editado
+Erase all
 Black
 Line width: 1
 Speckle size: 1
@@ -46,7 +47,7 @@ endif
 select sonido
 dur = Get total duration
 dur$ = fixed$(dur,3)
-Scale peak: 0.99
+
 Subtract mean
 
 
@@ -60,6 +61,7 @@ Filter (stop Hann band): 0, 70, 100
 
 ### Asigna nombre "sonido" al sonido filtrado.
 sonido_a = selected("Sound")
+Scale peak: 0.99
 
 ### Alisa el tono
 select tono_nat
@@ -82,10 +84,10 @@ Paint rectangle: "{0.8,0.8,0.8}", 0, dur, -1, 1
 select  sonido_a
 Blue
 
-Draw: 0, 0, 0, 0, "no", "Curve"
+Draw: 0, 0, -1, 1, "no", "Curve"
 Draw inner box
 Black
-Text special: dur, "Right", 0.8, "Bottom", "Times", 8, "0", "("+dur$+" segs)"
+Text special: dur, "Right", 1, "Bottom", "Times", 8, "0", "("+dur$+" segs)"
 
 
 #### Dibujar tono ####
@@ -123,7 +125,7 @@ Marks right every: 1, 50, "no", "yes", "yes"
 Marks right every: 1, 100, "yes", "no", "no"
 
 # Guarda los gráfico
-Select outer viewport: 0.5, 8.3, 0.3, 3.6
+Select outer viewport: 0.5, 8.3, 0.2, 3.6
 Save as 600-dpi PNG file: directorio$+"/"+sonido$+".png"
 
 # Guarda audio submuestreado
