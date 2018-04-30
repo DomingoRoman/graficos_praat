@@ -1,0 +1,91 @@
+# A partir de una tabla con los datos
+# crea carta de formantes con las ocurrencias  
+# de vocales y en un círculo y con mayúsculas
+# el promedio de cada una
+
+
+tabla = selected("Table")
+
+form Nombre
+	word nombre Estefanía
+	choice sexo 2
+		option masculino
+		option femenino
+endform
+
+if sexo = 2
+	tabla_s = Extract rows where column (text): "sexo", "is equal to", "f"
+else
+	tabla_s = Extract rows where column (text): "sexo", "is equal to", "h"
+endif
+
+voc_a = Extract rows where column (text): "vocal", "is equal to", "a"
+x_f1_a = Get mean: "F1"
+x_f2_a = Get mean: "F2"
+select tabla_s
+voc_e = Extract rows where column (text): "vocal", "is equal to", "e"
+x_f1_e = Get mean: "F1"
+x_f2_e = Get mean: "F2"
+select tabla_s
+voc_i = Extract rows where column (text): "vocal", "is equal to", "i"
+x_f1_i = Get mean: "F1"
+x_f2_i = Get mean: "F2"
+select tabla_s
+voc_o = Extract rows where column (text): "vocal", "is equal to", "o"
+x_f1_o = Get mean: "F1"
+x_f2_o = Get mean: "F2"
+select tabla_s
+voc_u = Extract rows where column (text): "vocal", "is equal to", "u"
+x_f1_u = Get mean: "F1"
+x_f2_u = Get mean: "F2"
+
+
+
+
+Erase all
+Select inner viewport: 1, 8, 1, 8
+
+select voc_a
+Maroon
+Scatter plot: "F2", 3000, 500, "F1", 1250, 100, "vocal", 10, "no"
+Draw circle (mm): x_f2_a, x_f1_a, 5
+Text: x_f2_a, "centre", x_f1_a, "Half", "A"
+
+select voc_e
+Green
+Scatter plot: "F2", 3000, 500, "F1", 1250, 100, "vocal", 10, "no"
+Draw circle (mm): x_f2_e, x_f1_e, 5
+Text: x_f2_e, "centre", x_f1_e, "Half", "E"
+
+select voc_i
+Red
+Scatter plot: "F2", 3000, 500, "F1", 1250, 100, "vocal", 10, "no"
+Draw circle (mm): x_f2_i, x_f1_i, 5
+Text: x_f2_i, "centre", x_f1_i, "Half", "I"
+
+select voc_o
+Blue
+Scatter plot: "F2", 3000, 500, "F1", 1250, 100, "vocal", 10, "no"
+Draw circle (mm): x_f2_o, x_f1_o, 5
+Text: x_f2_o, "centre", x_f1_o, "Half", "O"
+
+select voc_u
+Black
+Scatter plot: "F2", 3000, 500, "F1", 1250, 100, "vocal", 10, "no"
+Draw circle (mm): x_f2_u, x_f1_u, 5
+Text: x_f2_u, "centre", x_f1_u, "Half", "U"
+
+Marks left every: 1, 100, "yes", "yes", "yes"
+Marks bottom every: 1, 500, "yes", "yes", "yes"
+Draw inner box
+Text top: "no", "Realizaciones vocálicas de "+nombre$
+Text left: "yes", "F1"
+Text bottom: "yes", "F2"
+
+select voc_a
+plus voc_e
+plus voc_i
+plus voc_o
+plus voc_u
+plus tabla_s
+Remove
