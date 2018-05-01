@@ -16,7 +16,7 @@ endform
 if sexo = 2
 	tabla_s = Extract rows where column (text): "sexo", "is equal to", "f"
 else
-	tabla_s = Extract rows where column (text): "sexo", "is equal to", "h"
+	tabla_s = Extract rows where column (text): "sexo", "is equal to", "m"
 endif
 
 voc_a = Extract rows where column (text): "vocal", "is equal to", "a"
