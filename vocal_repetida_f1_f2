@@ -1,0 +1,106 @@
+## USACH
+# grafica los F1 y F2 de una sola vocal
+# a partir de una tabla de datos
+
+tabla = selected("Table")
+tabla$ = selected$("Table")
+
+vocal$ = left$(tabla$,1)
+writeInfoLine : vocal$
+
+Erase all
+Select inner viewport: 1, 8, 1, 4
+
+nfilas = Get number of rows
+nfilas_mitad = round(nfilas/2)
+
+tabla2a = Extract rows where column (number): "vocal", "less than", nfilas_mitad
+select tabla
+tabla2b = Extract rows where column (number): "vocal", "greater than", nfilas_mitad
+
+
+select tabla
+xf1 = Get mean: "F1"
+dvf1 = Get standard deviation: "F1"
+supdvf1 = xf1+(dvf1/2)
+infdvf1 = xf1-(dvf1/2)
+
+xf2 = Get mean: "F2"
+dvf2 = Get standard deviation: "F2"
+supdvf2 = xf2+(dvf2/2)
+infdvf2 = xf2-(dvf2/2)
+
+xeje = nfilas + 1
+
+Axes: 0, xeje, 0, 3000
+
+Draw inner box
+
+a = 1
+
+for a to nfilas
+	One mark bottom: a, "yes", "yes", "no", ""
+endfor
+
+
+# rectángulo para la desviación
+Paint rounded rectangle: "grey", 0, xeje, infdvf2, supdvf2, 0.5
+Paint rounded rectangle: "grey", 0, xeje, infdvf1, supdvf1, 0.5
+
+# marca el promedio
+One mark left: xf1, "no", "yes", "yes", "F1"
+One mark left: xf2, "no", "yes", "yes", "F2"
+One mark right: xf1, "yes", "yes", "no", ""
+One mark right: xf2, "yes", "yes", "no", ""
+
+for i to nfilas
+	f1 = Get value: i, "F1"
+	f2 = Get value: i, "F2"
+	Paint circle (mm): "red", i, f1, 2
+	Paint circle (mm): "red", i, f2, 2
+endfor
+
+
+pause
+
+
+Erase all
+select tabla2a
+xf1_t_2a = Get mean: "F1"
+xf2_t_2a = Get mean: "F2"
+
+select tabla2b
+xf1_t_2b = Get mean: "F1"
+xf2_t_2b = Get mean: "F2"
+
+
+Select inner viewport: 1, 3, 1, 5
+Draw inner box
+
+select tabla2a
+Red
+Box plots where: "F1 F2", "sexo", 0, 3000, "no", "1; self$[""gender""]=""male"""
+Select inner viewport: 3, 5, 1, 5
+select tabla2b
+Draw inner box
+Blue
+Box plots where: "F1 F2", "sexo", 0, 3000, "no", "1; self$[""gender""]=""male"""
+Black
+Select inner viewport: 1, 5, 1, 5
+Marks left every: 1, 200, "no", "yes", "yes"
+Marks left every: 1, 400, "yes", "no", "no"
+
+select tabla2a
+plus tabla2b
+Remove
+
+pause
+
+Erase all
+
+Select inner viewport: 1, 5, 1, 5
+Axes: 2000, 200, 3000, 300
+Draw inner box
+
+Text special: xf1_t_2a, "Centre", xf2_t_2a, "Half", "Times", 10, "0", vocal$+"1"
+Text special: xf1_t_2b, "Centre", xf2_t_2b, "Half", "Times", 10, "0", vocal$+"2"
