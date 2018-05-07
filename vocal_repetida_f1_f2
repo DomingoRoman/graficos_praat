@@ -2,6 +2,14 @@
 # grafica los F1 y F2 de una sola vocal
 # a partir de una tabla de datos
 
+form identif
+	real id
+	choice sex 1
+		option fem
+		option mas
+endform
+
+
 tabla = selected("Table")
 tabla$ = selected$("Table")
 
@@ -99,8 +107,20 @@ pause
 Erase all
 
 Select inner viewport: 1, 5, 1, 5
-Axes: 2000, 200, 3000, 300
+
+Axes: 3000, 300, 1000, 100
+
 Draw inner box
 
-Text special: xf1_t_2a, "Centre", xf2_t_2a, "Half", "Times", 10, "0", vocal$+"1"
-Text special: xf1_t_2b, "Centre", xf2_t_2b, "Half", "Times", 10, "0", vocal$+"2"
+Paint circle (mm): "red", xf2_t_2a, xf1_t_2a, 2
+Paint circle (mm): "blue", xf2_t_2b, xf1_t_2b, 2
+
+tablaSint = Create Table with column names: "table", 1, "id sexo vocal xf1a xf2a xf1b xf2b"
+
+Set string value: 1, "vocal", vocal$
+Set numeric value: 1, "xf1a", xf1_t_2a
+Set numeric value: 1, "xf2a", xf2_t_2a
+Set numeric value: 1, "xf1b", xf1_t_2b
+Set numeric value: 1, "xf2b", xf2_t_2b
+Set string value: 1, "sexo", sex$
+Set numeric value: 1, "id", id
