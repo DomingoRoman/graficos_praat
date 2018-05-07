@@ -1,0 +1,12 @@
+Erase all
+
+Select inner viewport: 1, 5, 1, 5
+
+Axes: 2000, 100, 3000, 200
+
+Draw inner box
+
+Red
+Scatter plot: "xf2a", 3000, 100, "xf1a", 1000, 200, "vocal", 12, "no"
+Blue
+Scatter plot: "xf2b", 3000, 100, "xf1a", 1000, 200, "vocal", 12, "no"
