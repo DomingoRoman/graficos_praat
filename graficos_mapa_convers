@@ -35,7 +35,8 @@ Speckle size: 1
 sonido = selected("Sound")
 tono_nat = selected("Pitch")
 sonido$ = selected$("Sound")
-sexo$ = mid$(sonido$,5)
+sexo$ = mid$(sonido$,4)
+writeInfoLine: sexo$
 
 if sexo$ = "h"
 	techo = 500
@@ -50,10 +51,9 @@ dur$ = fixed$(dur,3)
 
 Subtract mean
 
-
 fm= Get sampling frequency
 
-if fm = 44100 or fm = 22050
+if fm = 44100 or fm = 22050 or fm = 16000
 	remuestr = Resample: 16000, 50
 endif
 
