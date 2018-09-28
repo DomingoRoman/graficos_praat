@@ -41,7 +41,7 @@ tg = selected("TextGrid")
 
 sexo$ = mid$(sonido$,4)
 
-tono$ = "tono"
+tono$ = "_tono"
 if sexo$ = "h"
 	techo = 500
 elsif sexo$ ="m"
