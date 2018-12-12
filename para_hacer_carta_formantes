@@ -1,0 +1,19 @@
+# Para hacer una carta de formantes
+
+
+Black
+Line width: 1
+
+Erase all
+Select inner viewport: 1, 8, 1, 8
+
+Axes: 2500, 600, 1500, 200
+Draw inner box
+Marks left every: 1, 200, "yes", "yes", "yes"
+Marks left every: 1, 50, "no", "yes", "yes"
+Marks bottom every: 1, 200, "yes", "yes", "yes"
+Marks bottom every: 1, 100, "no", "yes", "yes"
+Text left: "yes", "F1"
+Text bottom: "yes", "F2"
+
+Select outer viewport: 0.41666666666666663, 8.1, 0.9, 8.38888888888889
